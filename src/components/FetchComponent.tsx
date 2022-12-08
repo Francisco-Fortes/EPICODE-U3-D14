@@ -1,24 +1,11 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
+import { Article } from "../interfaces/Article";
+import SingleArticle from "./SingleArticle";
 
 const FetchComponent = () => {
   // Passing our own Type in order to avoid TS to use the one that automatically detects (in that case Never)
   const [spaceArticles, setSpaceArticles] = useState<Article[]>([]);
-
-  //Defining the interface of spaceArticle because if it not article would be of the type Never
-  interface Article {
-    id: number;
-    title: string;
-    url: string;
-    imageUrl: string;
-    newsSite: string;
-    summary: string;
-    publishedAt: Date;
-    updatedAt: Date;
-    featured: boolean;
-    launches: any[];
-    events: any[];
-  }
 
   useEffect(() => {
     fetchArticles();
@@ -47,19 +34,12 @@ const FetchComponent = () => {
       <Row>
         <Col>
           {spaceArticles.map((article) => {
+            //Passing article as a prop to SingleArticle
             return (
-              <Card key={article.id} style={{ width: "18rem" }}>
-                <Card.Img
-                  variant="top"
-                  src={article.imageUrl}
-                  alt={article.title}
-                />
-                <Card.Body>
-                  <Card.Title>{article.title}</Card.Title>
-                  <Card.Text>{article.summary}</Card.Text>
-                  <Button variant="info">Continue reading...</Button>
-                </Card.Body>
-              </Card>
+              <SingleArticle
+                articleAsNameOfTheProp={article}
+                key={article.id}
+              />
             );
           })}
         </Col>
