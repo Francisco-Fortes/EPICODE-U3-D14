@@ -31,18 +31,14 @@ const FetchComponent = () => {
 
   return (
     <Container>
-      <Row>
-        <Col>
-          {spaceArticles.map((article) => {
-            //Passing article as a prop to SingleArticle
-            return (
-              <SingleArticle
-                articleAsNameOfTheProp={article}
-                key={article.id}
-              />
-            );
-          })}
-        </Col>
+      <Row className="justify-content-center">
+        {spaceArticles.map((article) => {
+          //Passing article as a prop to SingleArticle
+          return (
+            //Key must be on the parent element that you are returning out of the map
+            <SingleArticle articleAsNameOfTheProp={article} key={article.id} />
+          );
+        })}
       </Row>
     </Container>
   );
